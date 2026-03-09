@@ -1,5 +1,6 @@
 package org.example.backendstudy.domain.post.dto.res;
 
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 import lombok.Builder;
 import lombok.Getter;
 import org.example.backendstudy.global.apiPayload.ApiMeta;
@@ -11,6 +12,7 @@ public class PostResDto {
 
     @Getter
     @Builder
+    @JsonPropertyOrder({"id", "title", "description", "editable", "createdAt"})
     public static class SinglePostInfoDto{
         private Long id;
         private String title;
@@ -21,6 +23,7 @@ public class PostResDto {
 
     @Getter
     @Builder
+    @JsonPropertyOrder({"id", "title", "isNew", "createdAt"})
     public static class MultiPostsInfoDto{
         private Long id;
         private String title;
@@ -30,9 +33,10 @@ public class PostResDto {
 
     @Getter
     @Builder
+    @JsonPropertyOrder({"postList", "apiMeta"})
     public static class PostListInfoDto{
         private List<MultiPostsInfoDto> postList;
-        private ApiMeta meta;
+        private ApiMeta apiMeta;
     }
 
     @Getter

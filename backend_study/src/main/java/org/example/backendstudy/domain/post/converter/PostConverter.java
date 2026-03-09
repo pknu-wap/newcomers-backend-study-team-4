@@ -16,7 +16,7 @@ public class PostConverter {
                 .postList(entity.stream().
                         map(post -> PostConverter.toMultiDto(post))
                         .toList())
-                .meta(apiMeta)
+                .apiMeta(apiMeta)
                 .build();
     }
 

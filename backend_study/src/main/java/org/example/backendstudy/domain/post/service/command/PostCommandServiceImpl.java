@@ -32,7 +32,6 @@ public class PostCommandServiceImpl implements PostCommandService {
                 .orElseThrow(() -> new PostException(PostErrorCode.POST_ID_NOT_FOUND));
 
         post.updatePost(dto.getTitle(), dto.getDescription());
-        postRepository.flush();
 
         return PostConverter.toDtoForUpdated(post);
     }
