@@ -21,7 +21,7 @@ public class PostQueryServiceImpl implements PostQueryService {
     @Override
     public PostResDto.PostListInfoDto getPostsList(int page, int size) {
         Pageable pageable = PageRequest.of(page, size);
-        Page<Post> all = postRepository.findAll(pageable);
+        Page<Post> all = postRepository.findAllByOrderByCreatedAtDesc(pageable);
 
         ApiMeta apiMeta = new ApiMeta(all.getTotalPages(), all.getTotalElements());
 

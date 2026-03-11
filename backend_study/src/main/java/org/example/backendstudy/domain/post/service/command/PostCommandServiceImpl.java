@@ -27,10 +27,11 @@ public class PostCommandServiceImpl implements PostCommandService {
     }
 
     @Override
-    public PostResDto.UpdatedPostInfoDto updatePost(PostReqDto.UpdatePostReqDto dto) {
-        Post post = postRepository.findById(dto.getId())
+    public PostResDto.UpdatedPostInfoDto updatePost(Long userId, Long postId, PostReqDto.UpdatePostReqDto dto) {
+        Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostException(PostErrorCode.POST_ID_NOT_FOUND));
 
+        post.validateAuthor(userId);    //현재 로그인한 사용자와 게시글 작성자 비교
         post.updatePost(dto.getTitle(), dto.getDescription());
 
         return PostConverter.toDtoForUpdated(post);

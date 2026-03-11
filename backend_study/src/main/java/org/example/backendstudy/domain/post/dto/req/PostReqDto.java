@@ -1,6 +1,6 @@
 package org.example.backendstudy.domain.post.dto.req;
 
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,18 +9,20 @@ public class PostReqDto {
     @Getter
     @AllArgsConstructor
     public static class AddPostReqDto{
-        @NotNull
+        @NotBlank
         String title;
 
-        @NotNull
+        @NotBlank
         String description;
     }
 
     @Getter
     @AllArgsConstructor
     public static class UpdatePostReqDto{
-        Long id;
+        @NotBlank
         String title;
+
+        @NotBlank
         String description;
     }
 }

@@ -8,9 +8,9 @@ import org.example.backendstudy.domain.post.dto.res.PostResDto;
 import org.example.backendstudy.domain.post.service.command.PostCommandService;
 import org.example.backendstudy.domain.post.service.query.PostQueryService;
 import org.example.backendstudy.global.apiPayload.ApiResponse;
+import org.example.backendstudy.global.security.CustomPrinciple;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +29,7 @@ public class PostController {
     }
 
     /* 2. 단일 상세 조회 */
-    @GetMapping("{postId}")
+    @GetMapping("/{postId}")
     public ApiResponse<PostResDto.SinglePostInfoDto> getPost(
             @PathVariable Long postId
     ){
@@ -45,10 +45,12 @@ public class PostController {
     }
 
     /* 4. 데이터 수정 */
-    @PatchMapping()
+    @PatchMapping("/{postId}")
     public ApiResponse<PostResDto.UpdatedPostInfoDto> updatePost(
-            @RequestBody PostReqDto.UpdatePostReqDto dto
+            @AuthenticationPrincipal CustomPrinciple principle,
+            @PathVariable Long postId,
+            @Valid @RequestBody PostReqDto.UpdatePostReqDto dto
     ){
-        return ApiResponse.onSuccess(PostSuccessCode.POST_UPDATED, postCommandService.updatePost(dto));
+        return ApiResponse.onSuccess(PostSuccessCode.POST_UPDATED, postCommandService.updatePost(principle.getUserId(), postId, dto));
     }
 }
